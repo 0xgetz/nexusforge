@@ -1,0 +1,35 @@
+{
+  "name": "@nexusforge/healer",
+  "version": "0.1.0",
+  "description": "NexusForge Self-Healing Engine — Autonomous bug detection, root cause analysis, and auto-fix PRs",
+  "type": "module",
+  "bin": {
+    "nxf-heal": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./detector": "./dist/detector.js",
+    "./analyzer": "./dist/analyzer.js",
+    "./fixer": "./dist/fixer.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/detector.ts src/analyzer.ts src/fixer.ts src/monitor.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["self-healing", "bug-detection", "auto-fix", "ai", "monitoring"],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "ora": "^8.0.1",
+    "chokidar": "^4.0.0",
+    "glob": "^11.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@nexusforge/scanner",
+  "version": "0.1.0",
+  "description": "NexusForge AI Security Scanner — Dependency auditing, CVE lookup, and automated reports",
+  "type": "module",
+  "bin": {
+    "nxf-scan": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./scanner": "./dist/scanner.js",
+    "./reporter": "./dist/reporter.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/scanner.ts src/reporter.ts src/cve.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["security", "scanner", "cve", "vulnerability", "audit"],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "ora": "^8.0.1",
+    "semver": "^7.6.0",
+    "glob": "^11.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0",
+    "@types/semver": "^7.5.0"
+  }
+}

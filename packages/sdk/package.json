@@ -1,0 +1,40 @@
+{
+  "name": "@nexusforge/sdk",
+  "version": "0.1.0",
+  "description": "NexusForge Plugin SDK — Build extensions, integrations, and custom tools for the NexusForge ecosystem",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./plugin": {
+      "import": "./dist/plugin.js",
+      "types": "./dist/plugin.d.ts"
+    },
+    "./events": {
+      "import": "./dist/events.js",
+      "types": "./dist/events.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks.js",
+      "types": "./dist/hooks.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/plugin.ts src/events.ts src/hooks.ts src/loader.ts src/registry.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch"
+  },
+  "keywords": ["sdk", "plugin", "extension", "nexusforge", "ai-tools"],
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0"
+  }
+}
