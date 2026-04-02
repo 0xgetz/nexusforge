@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 4%;
+    --foreground: 210 40% 96%;
+    --card: 220 18% 7%;
+    --card-foreground: 210 40% 96%;
+    --popover: 220 18% 7%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 155 80% 50%;
+    --primary-foreground: 220 20% 4%;
+    --secondary: 220 16% 14%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 220 16% 14%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 270 70% 60%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 96%;
+    --border: 220 16% 16%;
+    --input: 220 16% 16%;
+    --ring: 155 80% 50%;
+    --radius: 0.75rem;
+    --chart-1: 155 80% 50%;
+    --chart-2: 270 70% 60%;
+    --chart-3: 200 80% 55%;
+    --chart-4: 40 90% 55%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Manrope', sans-serif;
+  }
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(220 18% 7%);
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(220 16% 20%);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(155 80% 50% / 0.5);
+}
+
+.glow-green {
+  box-shadow: 0 0 40px hsl(155 80% 50% / 0.15), 0 0 80px hsl(155 80% 50% / 0.05);
+}
+.glow-purple {
+  box-shadow: 0 0 40px hsl(270 70% 60% / 0.15), 0 0 80px hsl(270 70% 60% / 0.05);
+}
+.glow-text-green {
+  text-shadow: 0 0 30px hsl(155 80% 50% / 0.3);
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(hsl(220 16% 12% / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(220 16% 12% / 0.5) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, hsl(155 80% 50% / 0.4), hsl(270 70% 60% / 0.4), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.05); opacity: 0.3; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}

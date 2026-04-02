@@ -1,0 +1,23 @@
+# Base image Dockerfile for Next.js with shadcn/ui
+# This image pre-installs all npm dependencies for faster user builds
+# Build this image once and push to your artifact registry
+
+FROM node:20-slim AS base
+
+WORKDIR /app
+
+# Install system dependencies needed for native modules
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy package files
+COPY package*.json ./
+
+# Install ALL dependencies (including devDependencies for build)
+RUN npm install
+
+# The base image now has node_modules pre-installed
+# User code will be copied on top during actual build
