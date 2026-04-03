@@ -74,7 +74,8 @@ function getGitCommits(cwd: string): CommitInfo[] {
       .split("\n")
       .filter((line) => line.trim())
       .map((line) => {
-        const parts = line.split("||");
+        const cleaned = line.replace(/^"|"$/g, "");
+        const parts = cleaned.split("||");
         const tagRefs = (parts[4] || "")
           .split(",")
           .map((r) => r.trim())
@@ -82,13 +83,14 @@ function getGitCommits(cwd: string): CommitInfo[] {
           .map((r) => r.replace("tag: ", "").trim());
 
         return {
-          hash: parts[0],
-          date: parts[1],
-          subject: parts[2],
-          body: parts[3] || "",
+          hash: (parts[0] || "").trim(),
+          date: (parts[1] || "").trim(),
+          subject: (parts[2] || "").trim(),
+          body: (parts[3] || "").trim(),
           tags: tagRefs,
         };
-      });
+      })
+      .filter((c) => c.hash && c.subject);
   } catch {
     return [];
   }
@@ -163,6 +165,8 @@ function buildChangelogEntries(commits: CommitInfo[], tags: { tag: string; date:
 }
 
 function parseConventionalCommit(subject: string): { type: string; message: string } {
+  if (!subject) return { type: "change", message: "(no message)" };
+
   const conventionalMatch = subject.match(/^(\w+)(?:\([^)]*\))?[!]?:\s*(.+)/);
   if (conventionalMatch) {
     return {
