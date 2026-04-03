@@ -49,3 +49,6 @@ packages/*/dist
 packages/*/.turbo
 bun.lockb
 *.lock
+packages/testgen/node_modules/
+packages/deployer/node_modules/
+packages/guardian/node_modules/

@@ -1,0 +1,39 @@
+{
+  "name": "@nexusforge/guardian",
+  "version": "0.1.0",
+  "description": "NexusForge Code Guardian — AI code review, quality metrics, architecture analysis, docs generation",
+  "type": "module",
+  "bin": {
+    "nxf-guard": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./reviewer": "./dist/reviewer.js",
+    "./metrics": "./dist/metrics.js",
+    "./complexity": "./dist/complexity.js",
+    "./architecture": "./dist/architecture.js",
+    "./docs": "./dist/docs.js",
+    "./changelog": "./dist/changelog.js",
+    "./diff": "./dist/diff.js",
+    "./rules": "./dist/rules.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/reviewer.ts src/metrics.ts src/complexity.ts src/architecture.ts src/docs.ts src/changelog.ts src/diff.ts src/rules.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["code-review", "quality-metrics", "architecture", "documentation", "changelog", "ai"],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "ora": "^8.0.1",
+    "glob": "^11.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0"
+  }
+}
