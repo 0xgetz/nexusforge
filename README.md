@@ -2,12 +2,12 @@
 
 # ⚡ NexusForge
 
-### AI-Powered Code · Security · Self-Healing · Extensible
+### Code · Scan · Heal · Extend · Test · Deploy · Guard
 
-The world's first open-source AI development platform combining an **AI Coding Assistant**, **Security Scanner**, **Self-Healing Engine**, and **Plugin SDK** — all free, private, and multi-model.
+The world's first open-source AI development platform covering the **complete software lifecycle** — from coding to deployment to monitoring. **7 packages**, **56 source files**, **~10,000 LoC** — all free, private, and multi-model.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](https://opensource.org/licenses/MIT)
-[![Phase](https://img.shields.io/badge/All_Phases-Built-brightgreen.svg)](#roadmap)
+[![Phase](https://img.shields.io/badge/7_Phases-Complete-brightgreen.svg)](#roadmap)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/0xgetz/nexusforge/pulls)
 
 [Website](https://nexusforge.dev) · [Documentation](#packages) · [Roadmap](#-roadmap) · [Contributing](#-contributing)
@@ -29,28 +29,37 @@ Open-source security in 2026 has reached a critical tipping point:
 
 > Source: OSSRA 2026 — Black Duck Software
 
-## 🏗️ Three Pillars
+## 🏗️ Seven Pillars
 
-### Pillar 1: AI Coding Assistant
-A multi-agent coding system rivaling premium tools — completely free. Supports Ollama, OpenAI, Anthropic, and custom endpoints with streaming responses and project context awareness.
+```
+  Write → Scan → Heal → Extend → Test → Deploy → Guard
+   CLI    Scanner  Healer   SDK    TestGen Deployer Guardian
+```
 
-### Pillar 2: AI Security Scanner
-Real-time vulnerability scanning via OSV.dev API with multi-ecosystem support (npm, pip, Cargo, Go). Generates reports in JSON, Markdown, HTML, and SARIF formats with GitHub Actions integration.
-
-### Pillar 3: Self-Healing Engine
-Autonomous bug detection across TypeScript, JavaScript, Python, Rust, Go, and Java. Detects hardcoded secrets, SQL injection, XSS, and more — with auto-fix capabilities and real-time file monitoring.
+| # | Pillar | Package | What it does |
+|---|--------|---------|-------------|
+| 1 | **AI Coding** | `@nexusforge/cli` | Multi-model AI assistant, project scaffolding |
+| 2 | **Security** | `@nexusforge/scanner` | Vulnerability scanning, CVE lookup, SARIF output |
+| 3 | **Self-Healing** | `@nexusforge/healer` | Bug detection, auto-fix, real-time monitoring |
+| 4 | **Ecosystem** | `@nexusforge/sdk` | Plugin SDK, hooks, events, registry |
+| 5 | **Testing** | `@nexusforge/testgen` | AI test generation, coverage analysis, mutation testing |
+| 6 | **Deployment** | `@nexusforge/deployer` | Multi-cloud deploy, IaC, CI/CD pipelines |
+| 7 | **Quality** | `@nexusforge/guardian` | Code review, metrics, architecture analysis, docs |
 
 ## 📦 Packages
 
-NexusForge is a monorepo with four core packages:
+NexusForge is a monorepo with seven packages covering the full development lifecycle:
 
 ```
 nexusforge/
 ├── packages/
-│   ├── cli/         # @nexusforge/cli     — AI Coding Assistant CLI
-│   ├── scanner/     # @nexusforge/scanner — Security Scanner
-│   ├── healer/      # @nexusforge/healer  — Self-Healing Engine
-│   └── sdk/         # @nexusforge/sdk     — Plugin SDK
+│   ├── cli/         # Phase 1 — @nexusforge/cli      — AI Coding Assistant
+│   ├── scanner/     # Phase 2 — @nexusforge/scanner   — Security Scanner
+│   ├── healer/      # Phase 3 — @nexusforge/healer    — Self-Healing Engine
+│   ├── sdk/         # Phase 4 — @nexusforge/sdk       — Plugin SDK
+│   ├── testgen/     # Phase 5 — @nexusforge/testgen   — AI Test Generator
+│   ├── deployer/    # Phase 6 — @nexusforge/deployer  — Smart Deployer
+│   └── guardian/    # Phase 7 — @nexusforge/guardian   — Code Guardian
 ├── src/             # Landing page (Next.js)
 └── .github/         # CI/CD workflows
 ```
@@ -184,14 +193,152 @@ export default definePlugin({
 
 ---
 
+### 🧪 `@nexusforge/testgen` — AI Test Generator
+
+Smart test generation, coverage analysis, and mutation testing across multiple languages and frameworks.
+
+```bash
+cd packages/testgen && npm install && npm run build
+
+# Generate tests for a file
+node dist/index.js generate --file src/utils.ts
+
+# Generate tests for entire project
+node dist/index.js generate --path ./src --framework vitest --output ./tests/generated
+
+# Analyze coverage gaps
+node dist/index.js coverage --path ./src --threshold 85
+
+# Run mutation testing
+node dist/index.js mutate --path ./src --tests ./tests
+
+# Auto-fill missing tests to reach target coverage
+node dist/index.js fill --target 85 --output ./tests/generated
+```
+
+**Features:**
+- Smart test generation: happy path, edge cases, error cases, boundary tests
+- Coverage gap detection with recommendations
+- Mutation testing engine (arithmetic, conditional, boundary, negation mutators)
+- Multi-framework: Jest, Vitest, Mocha, pytest, unittest, go test, cargo test, JUnit
+- Source code analyzer with AST-like extraction for TS, JS, Python, Go, Rust, Java
+- Auto-detects test framework from project config
+
+**Programmatic:**
+```typescript
+import { generateTests, analyzeCoverage, mutationTest } from "@nexusforge/testgen";
+
+const tests = await generateTests({ file: "src/auth.ts", framework: "vitest" });
+const coverage = await analyzeCoverage({ path: "./src", threshold: 85 });
+const mutations = await mutationTest({ path: "./src", testsPath: "./tests" });
+```
+
+---
+
+### 🚀 `@nexusforge/deployer` — Smart Deployer
+
+Multi-cloud deployment, IaC generation, CI/CD pipeline builder, and health monitoring.
+
+```bash
+cd packages/deployer && npm install && npm run build
+
+# Auto-detect project configuration
+node dist/index.js detect --path .
+
+# Generate Dockerfile (+ docker-compose with --compose)
+node dist/index.js docker --path . --compose
+
+# Generate Terraform/Pulumi/K8s infrastructure
+node dist/index.js iac --provider terraform --cloud aws --features compute,database,cdn
+
+# Generate CI/CD pipeline
+node dist/index.js pipeline --ci github-actions --features lint,test,build,security-scan
+
+# Health check a deployed app
+node dist/index.js health https://your-app.vercel.app
+
+# View deployment history
+node dist/index.js history
+```
+
+**Features:**
+- Zero-config project detection (Next.js, React, Vue, Svelte, Astro, Express, FastAPI, Django, Go, Rust)
+- Dockerfile & Docker Compose generation with multi-stage builds
+- IaC generation: Terraform, Pulumi, Kubernetes manifests, Docker Compose
+- CI/CD pipelines: GitHub Actions, GitLab CI, Jenkins, CircleCI
+- 6 deployment providers: Vercel, Netlify, AWS ECS/Fargate, Google Cloud Run, Docker, Custom SSH
+- Build optimization analysis with size reduction estimates
+- Health check system with SSL, headers, and endpoint verification
+- Rollback & version history management
+
+**Programmatic:**
+```typescript
+import { detectProject, generateDockerfile, generateIaC, generatePipeline } from "@nexusforge/deployer";
+
+const config = detectProject("./my-app");
+const dockerfile = generateDockerfile(config, "./my-app");
+const iac = generateIaC({ provider: "terraform", cloudProvider: "aws", project: config, ... });
+const pipeline = generatePipeline({ ciProvider: "github-actions", project: config, ... });
+```
+
+---
+
+### 🛡️ `@nexusforge/guardian` — Code Guardian
+
+AI-powered code review, quality metrics, architecture analysis, and documentation generation.
+
+```bash
+cd packages/guardian && npm install && npm run build
+
+# Run AI code review
+node dist/index.js review --path ./src
+
+# Analyze quality metrics
+node dist/index.js metrics --path . --output quality-report.json
+
+# Architecture analysis (circular deps, coupling, layer violations)
+node dist/index.js arch --path ./src
+
+# Generate API documentation
+node dist/index.js docs --path ./src --output API_DOCS.md
+```
+
+**Features:**
+- Code review with A-F grading system and scoring (0-100)
+- Issue severity levels: Critical, Major, Minor, Suggestion, Praise
+- Review categories: bug-risk, performance, security, maintainability, readability, style, best-practice
+- Quality metrics: Maintainability Index, technical debt estimation (hours), code duplication detection
+- Complexity analysis with hotspot detection
+- Architecture analysis: module mapping, dependency graph, circular dependency detection
+- Layer violation detection (UI → Service → Domain → Infrastructure)
+- Coupling metrics: afferent/efferent coupling, instability, abstractness
+- API documentation generator (Markdown) with JSDoc support
+- Custom rule engine with 25+ built-in rules
+- Changelog generator from conventional commits
+
+**Programmatic:**
+```typescript
+import { reviewProject, analyzeMetrics, analyzeArchitecture, generateDocs } from "@nexusforge/guardian";
+
+const review = await reviewProject("./src");       // Score: 87/100 (B)
+const metrics = await analyzeMetrics(".");          // MI: 72.4, Debt: 8.2h
+const arch = await analyzeArchitecture("./src");    // 0 circular deps ✓
+const docs = await generateDocs("./src");           // 42 exports documented
+```
+
+**Built-in Rules (25+):**
+`SEC-001` Hardcoded secrets · `SEC-002` eval() usage · `SEC-003` innerHTML XSS · `SEC-004` SQL injection · `PERF-001` Sync I/O · `PERF-002` N+1 queries · `MAINT-001` Deep nesting · `MAINT-002` Long functions · `MAINT-003` God files · `STYLE-001` console.log · `STYLE-002` TODO/FIXME · `BP-001` any type · `BP-002` Wildcard imports · and more...
+
+---
+
 ## ⚡ Quick Start
 
 ```bash
 git clone https://github.com/0xgetz/nexusforge.git && cd nexusforge
 
-# Build all packages
-for pkg in cli scanner healer sdk; do
-  cd packages/$pkg && bun install && bun run build && cd ../..
+# Build all 7 packages
+for pkg in cli scanner healer sdk testgen deployer guardian; do
+  cd packages/$pkg && npm install && npm run build && cd ../..
 done
 
 # Start coding
@@ -200,29 +347,51 @@ node packages/cli/dist/index.js chat
 # Scan vulnerabilities
 node packages/scanner/dist/index.js audit
 
-# Diagnose bugs
-node packages/healer/dist/index.js diagnose
+# Diagnose & fix bugs
+node packages/healer/dist/index.js diagnose --fix
+
+# Generate tests
+node packages/testgen/dist/index.js generate --path ./src
+
+# Detect & deploy
+node packages/deployer/dist/index.js detect
+node packages/deployer/dist/index.js docker --compose
+
+# Code review & metrics
+node packages/guardian/dist/index.js review --path ./src
+node packages/guardian/dist/index.js metrics
 ```
 
 ## 🛠️ Technology Stack
 
 | Component | Technology |
 |-----------|-----------|
-| Core Engine | TypeScript + Rust |
+| Core Engine | TypeScript (ESM) |
+| Build System | tsup + TypeScript 5.5 |
 | AI Integration | Model Context Protocol (MCP) |
 | CLI Interface | Commander.js + Chalk + Ora |
 | Security Engine | OSV.dev API + Custom AST |
 | Plugin System | Custom SDK + EventBus + Hooks |
+| Test Engine | Multi-framework adapters + Mutation engine |
+| Deploy Engine | Multi-cloud providers + IaC generators |
+| Quality Engine | Static analysis + Metrics + Architecture |
 | Local AI | Ollama Integration |
 
 ## 🗺️ Roadmap
 
-| Phase | Timeline | Focus | Status |
-|-------|----------|-------|--------|
-| **Phase 1: Foundation** | Q2 2026 | Core CLI, AI coding, multi-model | ✅ Built |
-| **Phase 2: Security** | Q3 2026 | Security scanner, CVE lookup, CI/CD | ✅ Built |
-| **Phase 3: Healing** | Q4 2026 | Self-healing, auto-fix, monitoring | ✅ Built |
-| **Phase 4: Ecosystem** | Q1–Q2 2027 | Plugin SDK, events, marketplace | ✅ Built |
+| Phase | Package | Focus | Files | LoC | Status |
+|-------|---------|-------|-------|-----|--------|
+| **Phase 1** | `@nexusforge/cli` | AI Coding Assistant, multi-model | 6 | 1,124 | ✅ Complete |
+| **Phase 2** | `@nexusforge/scanner` | Security scanner, CVE lookup, CI/CD | 5 | 801 | ✅ Complete |
+| **Phase 3** | `@nexusforge/healer` | Self-healing, auto-fix, monitoring | 6 | 930 | ✅ Complete |
+| **Phase 4** | `@nexusforge/sdk` | Plugin SDK, events, hooks, registry | 7 | 740 | ✅ Complete |
+| **Phase 5** | `@nexusforge/testgen` | AI test generation, coverage, mutation | 8 | 2,187 | ✅ Complete |
+| **Phase 6** | `@nexusforge/deployer` | Multi-cloud deploy, IaC, CI/CD pipelines | 14 | 1,730 | ✅ Complete |
+| **Phase 7** | `@nexusforge/guardian` | Code review, metrics, architecture, docs | 10 | 2,284 | ✅ Complete |
+| | | **Total** | **56** | **~9,800** | |
+| **Phase 5: Testing** | Q2 2027 | AI test generation, coverage, mutation testing | ✅ Built |
+| **Phase 6: Deployment** | Q3 2027 | Multi-cloud deploy, IaC, CI/CD pipelines | ✅ Built |
+| **Phase 7: Quality** | Q4 2027 | Code review, metrics, architecture, docs | ✅ Built |
 
 ## 📊 Comparison
 
@@ -232,6 +401,9 @@ node packages/healer/dist/index.js diagnose
 | Multi-Model Support | ✅ | ❌ | ❌ | ✅ |
 | Security Scanning | ✅ | ❌ | ❌ | ❌ |
 | Self-Healing Engine | ✅ | ❌ | ❌ | ❌ |
+| AI Test Generation | ✅ | ❌ | ❌ | ❌ |
+| Smart Deployment | ✅ | ❌ | ❌ | ❌ |
+| Code Quality Guardian | ✅ | ❌ | ❌ | ❌ |
 | Privacy-First / Local | ✅ | ❌ | ❌ | ✅ |
 | 100% Free | ✅ | ❌ | ❌ | ✅ |
 | Plugin Ecosystem | ✅ | ⚠️ | ⚠️ | ❌ |

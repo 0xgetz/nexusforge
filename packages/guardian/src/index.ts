@@ -9,7 +9,9 @@ import { reviewProject } from "./reviewer.js";
 import { analyzeMetrics } from "./metrics.js";
 import { analyzeArchitecture } from "./architecture.js";
 import { generateDocs, formatDocs } from "./docs.js";
-import type { MetricGrade } from "./types.js";
+import { generateChangelog } from "./changelog.js";
+import { getAllRules, filterRules } from "./rules.js";
+import type { MetricGrade, ReviewSeverity, ReviewCategory } from "./types.js";
 
 const VERSION = "0.1.0";
 const ACCENT = "#8b5cf6";
@@ -194,6 +196,7 @@ program
   .description("Generate API documentation")
   .option("-p, --path <path>", "Project path", process.cwd())
   .option("-o, --output <file>", "Output file", "API_DOCS.md")
+  .option("--json", "Output as JSON")
   .action(async (options) => {
     console.log(chalk.hex(ACCENT).bold("\n📝 NexusForge Doc Generator\n"));
     const spinner = ora("Generating documentation...").start();
@@ -201,21 +204,96 @@ program
     try {
       const entries = await generateDocs(resolve(options.path));
       const exported = entries.filter((e) => e.isExported);
+      const documented = exported.filter((e) => e.description && !e.description.startsWith("Function ") && !e.description.startsWith("Arrow function ") && !e.description.startsWith("Interface ") && !e.description.startsWith("Type alias ") && !e.description.startsWith("Class "));
+      const undocumented = exported.length - documented.length;
+      const coveragePercent = exported.length > 0 ? Math.round((documented.length / exported.length) * 100) : 100;
       const markdown = formatDocs(entries);
 
-      writeFileSync(resolve(options.output), markdown, "utf-8");
       spinner.succeed(`Generated docs for ${exported.length} exports`);
 
+      if (options.json) {
+        console.log(JSON.stringify({ entries, stats: { totalExports: exported.length, documented: documented.length, undocumented, coveragePercent } }, null, 2));
+        return;
+      }
+
       console.log();
-      console.log(`  Functions:  ${chalk.cyan(entries.filter((e) => e.type === "function").length.toString())}`);
-      console.log(`  Interfaces: ${chalk.cyan(entries.filter((e) => e.type === "interface").length.toString())}`);
-      console.log(`  Types:      ${chalk.cyan(entries.filter((e) => e.type === "type").length.toString())}`);
-      console.log(`  Classes:    ${chalk.cyan(entries.filter((e) => e.type === "class").length.toString())}`);
+      console.log(`  Total exports:  ${exported.length}`);
+      console.log(`  Documented:     ${chalk.green(String(documented.length))}`);
+      console.log(`  Undocumented:   ${chalk.yellow(String(undocumented))}`);
+      console.log(`  Coverage:       ${coveragePercent}%`);
       console.log();
-      console.log(chalk.green(`  ✓ Saved to ${options.output}\n`));
+
+      if (options.output) {
+        writeFileSync(resolve(options.output), markdown, "utf-8");
+        console.log(chalk.green(`  ✓ Saved to ${options.output}\n`));
+      }
     } catch (err) {
       spinner.fail("Documentation generation failed");
       console.log(chalk.red(`\n  ✗ ${err instanceof Error ? err.message : err}\n`));
+    }
+  });
+
+program
+  .command("changelog")
+  .description("Generate changelog from git history")
+  .option("-p, --path <path>", "Project path", process.cwd())
+  .option("-o, --output <file>", "Output file", "CHANGELOG.md")
+  .option("--json", "Output as JSON")
+  .action(async (options) => {
+    console.log(chalk.hex(ACCENT).bold("\n📋 NexusForge Changelog Generator\n"));
+    const spinner = ora("Generating changelog...").start();
+
+    try {
+      const result = await generateChangelog(resolve(options.path));
+      spinner.succeed(`Found ${result.entries.length} version(s)`);
+
+      if (options.json) {
+        console.log(JSON.stringify(result, null, 2));
+        return;
+      }
+
+      if (options.output) {
+        writeFileSync(resolve(options.output), result.markdown, "utf-8");
+        console.log(chalk.green(`\n  ✓ Changelog written to ${options.output}\n`));
+      } else {
+        console.log(result.markdown);
+      }
+    } catch (err) {
+      spinner.fail("Changelog generation failed");
+      console.log(chalk.red(`\n  ✗ ${err instanceof Error ? err.message : err}\n`));
+    }
+  });
+
+program
+  .command("rules")
+  .description("List all available review rules")
+  .option("--severity <level>", "Filter by severity")
+  .option("--category <cat>", "Filter by category")
+  .option("--json", "Output as JSON")
+  .action((options) => {
+    let rules = getAllRules();
+
+    rules = filterRules(rules, {
+      severity: options.severity as ReviewSeverity | undefined,
+      category: options.category as ReviewCategory | undefined,
+    });
+
+    if (options.json) {
+      console.log(JSON.stringify(rules, null, 2));
+      return;
+    }
+
+    console.log(chalk.hex(ACCENT).bold(`\n📏 Guardian Rules (${rules.length})\n`));
+
+    for (const rule of rules) {
+      const sevColor = rule.severity === "critical" ? chalk.red :
+        rule.severity === "major" ? chalk.hex("#f97316") :
+        rule.severity === "minor" ? chalk.yellow : chalk.blue;
+
+      console.log(`  ${sevColor(rule.id)} ${chalk.white.bold(rule.name)}`);
+      console.log(`    ${chalk.dim(rule.description)}`);
+      console.log(`    ${chalk.dim(`Category: ${rule.category} | Severity: ${rule.severity}`)}`);
+      console.log();
     }
   });
 
@@ -233,7 +311,8 @@ export { reviewProject } from "./reviewer.js";
 export { analyzeMetrics } from "./metrics.js";
 export { analyzeArchitecture } from "./architecture.js";
 export { generateDocs, formatDocs } from "./docs.js";
-export { getBuiltinRules, loadCustomRules } from "./rules.js";
+export { generateChangelog } from "./changelog.js";
+export { getAllRules, filterRules, getBuiltinRules, loadCustomRules } from "./rules.js";
 export type {
   ReviewIssue, ReviewResult, ReviewSummary, ReviewSeverity, ReviewCategory,
   QualityMetrics, MetricGrade, TechnicalDebt, DebtItem,
