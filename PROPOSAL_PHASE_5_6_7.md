@@ -1463,9 +1463,9 @@ Developer writes code
 | **Phase 2** | `@nexusforge/scanner` | Q3 2026 | Security scanner, CVE, CI/CD | ✅ Built |
 | **Phase 3** | `@nexusforge/healer` | Q4 2026 | Self-healing, auto-fix, monitoring | ✅ Built |
 | **Phase 4** | `@nexusforge/sdk` | Q1 2027 | Plugin SDK, events, marketplace | ✅ Built |
-| **Phase 5** | `@nexusforge/testgen` | Q2 2027 | AI test generation, mutation testing | 📋 Proposed |
-| **Phase 6** | `@nexusforge/deployer` | Q3 2027 | Multi-cloud deploy, IaC, CI/CD gen | 📋 Proposed |
-| **Phase 7** | `@nexusforge/guardian` | Q4 2027 | Code review, quality, docs gen | 📋 Proposed |
+| **Phase 5** | `@nexusforge/testgen` | Q2 2027 | AI test generation, mutation testing | ✅ Built |
+| **Phase 6** | `@nexusforge/deployer` | Q3 2027 | Multi-cloud deploy, IaC, CI/CD gen | ✅ Built |
+| **Phase 7** | `@nexusforge/guardian` | Q4 2027 | Code review, quality, docs gen | ✅ Built |
 
 ---
 
