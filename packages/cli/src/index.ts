@@ -5,7 +5,7 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 import { startChat } from "./chat.js";
 import { getConfig, setConfig, setModelApiKey, addModel, listModels } from "./config.js";
-import { scaffold, listTemplates, getTemplateNames } from "./scaffold.js";
+import { scaffold, listTemplates, getTemplateKeys } from "./scaffold.js";
 import { scanProject } from "./context.js";
 import type { ModelConfig } from "./config.js";
 
@@ -51,6 +51,7 @@ program
     console.log(LOGO);
 
     const templates = listTemplates();
+    const templateKeys = getTemplateKeys();
 
     let projectName = name;
     let templateName = options.template;
@@ -61,15 +62,13 @@ program
           type: "list",
           name: "selectedTemplate",
           message: "Select a project template:",
-          choices: templates.map((t) => ({
+          choices: templates.map((t, i) => ({
             name: `${chalk.white(t.name)} ${chalk.dim(`— ${t.description}`)}`,
-            value: Object.keys(getTemplateNames()).find(
-              (_, i) => templates[i].name === t.name
-            ),
+            value: templateKeys[i],
           })),
         },
       ]);
-      templateName = getTemplateNames()[selectedTemplate] || getTemplateNames()[0];
+      templateName = selectedTemplate;
     }
 
     if (!projectName) {

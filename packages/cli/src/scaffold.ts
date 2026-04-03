@@ -176,6 +176,14 @@ export function scaffold(templateName: string, projectName: string, targetDir: s
   }
 }
 
-export function getTemplateNames(): string[] {
+export function getTemplateNames(): Record<string, string> {
+  const names: Record<string, string> = {};
+  for (const key of Object.keys(templates)) {
+    names[key] = key;
+  }
+  return names;
+}
+
+export function getTemplateKeys(): string[] {
   return Object.keys(templates);
 }

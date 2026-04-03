@@ -16,6 +16,7 @@ export type BugCategory =
   | "hardcoded-secret"
   | "sql-injection"
   | "xss"
+  | "info"
   | "custom";
 
 export interface Bug {

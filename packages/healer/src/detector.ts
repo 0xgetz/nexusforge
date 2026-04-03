@@ -96,7 +96,7 @@ const PATTERNS: Pattern[] = [
   // TODO/FIXME/HACK comments
   {
     regex: /\/\/\s*(TODO|FIXME|HACK|XXX|BUG)\b[: ]*(.*)/gi,
-    category: "info" as BugCategory,
+    category: "info",
     severity: "info",
     message: "Developer note found",
     autoFixable: false,
@@ -207,7 +207,7 @@ export function detectBugs(filePath: string, content: string): Bug[] {
       if (seenPositions.has(posKey)) continue;
       seenPositions.add(posKey);
 
-      const message = pattern.category === ("info" as BugCategory)
+      const message = pattern.category === "info"
         ? `${pattern.message}: ${match[2] || match[0]}`
         : pattern.message;
 
