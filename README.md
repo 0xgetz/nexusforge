@@ -32,8 +32,8 @@ Open-source security in 2026 has reached a critical tipping point:
 ## 🏗️ Seven Pillars
 
 ```
-  Write → Scan → Heal → Extend → Test → Deploy → Guard
-   CLI    Scanner  Healer   SDK    TestGen Deployer Guardian
+ Write → Scan → Heal → Extend → Test → Deploy → Guard
+ CLI Scanner Healer SDK TestGen Deployer Guardian
 ```
 
 | # | Pillar | Package | What it does |
@@ -53,15 +53,15 @@ NexusForge is a monorepo with seven packages covering the full development lifec
 ```
 nexusforge/
 ├── packages/
-│   ├── cli/         # Phase 1 — @nexusforge/cli      — AI Coding Assistant
-│   ├── scanner/     # Phase 2 — @nexusforge/scanner   — Security Scanner
-│   ├── healer/      # Phase 3 — @nexusforge/healer    — Self-Healing Engine
-│   ├── sdk/         # Phase 4 — @nexusforge/sdk       — Plugin SDK
-│   ├── testgen/     # Phase 5 — @nexusforge/testgen   — AI Test Generator
-│   ├── deployer/    # Phase 6 — @nexusforge/deployer  — Smart Deployer
-│   └── guardian/    # Phase 7 — @nexusforge/guardian   — Code Guardian
-├── src/             # Landing page (Next.js)
-└── .github/         # CI/CD workflows
+│   ├── cli/       # Phase 1 — @nexusforge/cli       — AI Coding Assistant
+│   ├── scanner/   # Phase 2 — @nexusforge/scanner    — Security Scanner
+│   ├── healer/    # Phase 3 — @nexusforge/healer     — Self-Healing Engine
+│   ├── sdk/       # Phase 4 — @nexusforge/sdk        — Plugin SDK
+│   ├── testgen/   # Phase 5 — @nexusforge/testgen    — AI Test Generator
+│   ├── deployer/  # Phase 6 — @nexusforge/deployer   — Smart Deployer
+│   └── guardian/  # Phase 7 — @nexusforge/guardian    — Code Guardian
+├── src/           # Landing page (Next.js)
+└── .github/       # CI/CD workflows
 ```
 
 ---
@@ -285,7 +285,7 @@ const pipeline = generatePipeline({ ciProvider: "github-actions", project: confi
 
 ### 🛡️ `@nexusforge/guardian` — Code Guardian
 
-AI-powered code review, quality metrics, architecture analysis, and documentation generation.
+AI-powered code review, quality metrics, architecture analysis, documentation generation, and changelog.
 
 ```bash
 cd packages/guardian && npm install && npm run build
@@ -301,10 +301,17 @@ node dist/index.js arch --path ./src
 
 # Generate API documentation
 node dist/index.js docs --path ./src --output API_DOCS.md
+
+# Generate changelog from git history
+node dist/index.js changelog --path . --output CHANGELOG.md
+
+# List all built-in review rules
+node dist/index.js rules
+node dist/index.js rules --severity critical --json
 ```
 
 **Features:**
-- Code review with A-F grading system and scoring (0-100)
+- Code review with A–F grading system and scoring (0–100)
 - Issue severity levels: Critical, Major, Minor, Suggestion, Praise
 - Review categories: bug-risk, performance, security, maintainability, readability, style, best-practice
 - Quality metrics: Maintainability Index, technical debt estimation (hours), code duplication detection
@@ -313,21 +320,22 @@ node dist/index.js docs --path ./src --output API_DOCS.md
 - Layer violation detection (UI → Service → Domain → Infrastructure)
 - Coupling metrics: afferent/efferent coupling, instability, abstractness
 - API documentation generator (Markdown) with JSDoc support
-- Custom rule engine with 25+ built-in rules
-- Changelog generator from conventional commits
+- Changelog generator from conventional commits (Keep a Changelog format)
+- Custom rule engine with 14+ built-in rules
+- Rule filtering by severity and category
 
 **Programmatic:**
 ```typescript
 import { reviewProject, analyzeMetrics, analyzeArchitecture, generateDocs } from "@nexusforge/guardian";
 
-const review = await reviewProject("./src");       // Score: 87/100 (B)
-const metrics = await analyzeMetrics(".");          // MI: 72.4, Debt: 8.2h
-const arch = await analyzeArchitecture("./src");    // 0 circular deps ✓
-const docs = await generateDocs("./src");           // 42 exports documented
+const review = await reviewProject("./src"); // Score: 87/100 (B)
+const metrics = await analyzeMetrics("."); // MI: 72.4, Debt: 8.2h
+const arch = await analyzeArchitecture("./src"); // 0 circular deps ✓
+const docs = await generateDocs("./src"); // 42 exports documented
 ```
 
-**Built-in Rules (25+):**
-`SEC-001` Hardcoded secrets · `SEC-002` eval() usage · `SEC-003` innerHTML XSS · `SEC-004` SQL injection · `PERF-001` Sync I/O · `PERF-002` N+1 queries · `MAINT-001` Deep nesting · `MAINT-002` Long functions · `MAINT-003` God files · `STYLE-001` console.log · `STYLE-002` TODO/FIXME · `BP-001` any type · `BP-002` Wildcard imports · and more...
+**Built-in Rules (14+):**
+`SEC-001` Hardcoded secrets · `SEC-002` eval() usage · `SEC-003` innerHTML XSS · `BUG-001` Unsafe any cast · `BUG-002` Bare except · `BUG-003` Non-exhaustive switch · `PERF-001` Sync filesystem calls · `PERF-002` Triple-nested loops · `MAINT-001` console.log · `MAINT-002` TODO/FIXME · `MAINT-003` Magic numbers · `MAINT-004` Wildcard imports · `STYLE-001` any type usage · `STYLE-002` Non-null assertions
 
 ---
 
@@ -360,6 +368,9 @@ node packages/deployer/dist/index.js docker --compose
 # Code review & metrics
 node packages/guardian/dist/index.js review --path ./src
 node packages/guardian/dist/index.js metrics
+
+# Generate changelog
+node packages/guardian/dist/index.js changelog --output CHANGELOG.md
 ```
 
 ## 🛠️ Technology Stack
@@ -387,11 +398,8 @@ node packages/guardian/dist/index.js metrics
 | **Phase 4** | `@nexusforge/sdk` | Plugin SDK, events, hooks, registry | 7 | 740 | ✅ Complete |
 | **Phase 5** | `@nexusforge/testgen` | AI test generation, coverage, mutation | 8 | 2,187 | ✅ Complete |
 | **Phase 6** | `@nexusforge/deployer` | Multi-cloud deploy, IaC, CI/CD pipelines | 14 | 1,730 | ✅ Complete |
-| **Phase 7** | `@nexusforge/guardian` | Code review, metrics, architecture, docs | 10 | 2,284 | ✅ Complete |
-| | | **Total** | **56** | **~9,800** | |
-| **Phase 5: Testing** | Q2 2027 | AI test generation, coverage, mutation testing | ✅ Built |
-| **Phase 6: Deployment** | Q3 2027 | Multi-cloud deploy, IaC, CI/CD pipelines | ✅ Built |
-| **Phase 7: Quality** | Q4 2027 | Code review, metrics, architecture, docs | ✅ Built |
+| **Phase 7** | `@nexusforge/guardian` | Code review, metrics, architecture, docs | 12 | 2,363 | ✅ Complete |
+|  |  | **Total** | **58** | **~9,875** | **🎉 All Complete** |
 
 ## 📊 Comparison
 
@@ -419,13 +427,3 @@ node packages/guardian/dist/index.js metrics
 ## 📄 License
 
 MIT — see [LICENSE](LICENSE)
-
----
-
-<div align="center">
-
-**Built with ❤️ by [0xgetz](https://github.com/0xgetz) and the open-source community**
-
-*Every developer deserves world-class AI tools — regardless of budget.*
-
-</div>
