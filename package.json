@@ -1,42 +1,32 @@
 {
-  "name": "nextjs-shadcn",
+  "name": "nexusforge",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev -H 0.0.0.0 --turbopack",
     "start": "next start -H 0.0.0.0 -p ${PORT:-3000}",
     "build": "prisma generate; BUILD_DIR=.next-build next build",
     "build:local": "BUILD_DIR=.next-build next build",
     "lint": "bunx biome lint --write && bunx tsc --noEmit",
-    "format": "bunx biome format --write"
+    "format": "bunx biome format --write",
+    "test": "bun test",
+    "publish:cli": "npm publish --access public --workspace @nexusforge/cli",
+    "publish:scanner": "npm publish --access public --workspace @nexusforge/scanner",
+    "publish:healer": "npm publish --access public --workspace @nexusforge/healer",
+    "publish:sdk": "npm publish --access public --workspace @nexusforge/sdk",
+    "publish:testgen": "npm publish --access public --workspace @nexusforge/testgen",
+    "publish:deployer": "npm publish --access public --workspace @nexusforge/deployer",
+    "publish:guardian": "npm publish --access public --workspace @nexusforge/guardian",
+    "publish:all": "npm run publish:cli && npm run publish:scanner && npm run publish:healer && npm run publish:sdk && npm run publish:testgen && npm run publish:deployer && npm run publish:guardian",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
-    "@radix-ui/react-separator": "^1.1.8",
-    "@radix-ui/react-slot": "^1.2.4",
-    "@radix-ui/react-tabs": "^1.1.13",
-    "@types/aos": "^3.0.7",
-    "aos": "^2.3.4",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "framer-motion": "^12.38.0",
-    "lucide-react": "^1.7.0",
-    "next": "^15.5.13",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwind-merge": "^3.3.0",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@eslint/eslintrc": "^3.3.1",
-    "@types/node": "^20.17.50",
-    "@types/react": "^18.3.22",
-    "@types/react-dom": "^18.3.7",
-    "eslint": "^9.27.0",
-    "eslint-config-next": "15.1.7",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.3"
+    "@radix-ui/react-separator": "^1.1.8"
   }
 }

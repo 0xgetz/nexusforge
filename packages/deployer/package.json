@@ -7,6 +7,7 @@
     "nxf-deploy": "./dist/index.js"
   },
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./detector": "./dist/detector.js",
@@ -15,6 +16,10 @@
     "./pipeline": "./dist/pipeline.js",
     "./rollback": "./dist/rollback.js",
     "./health": "./dist/health.js"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsup src/index.ts src/detector.ts src/builder.ts src/iac.ts src/pipeline.ts src/rollback.ts src/health.ts src/providers/vercel.ts src/providers/netlify.ts src/providers/aws.ts src/providers/gcp.ts src/providers/docker.ts src/providers/custom.ts --format esm --dts --clean",
