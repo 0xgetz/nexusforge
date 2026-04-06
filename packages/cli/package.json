@@ -27,7 +27,7 @@
     "inquirer": "^9.3.0",
     "ora": "^8.0.1",
     "marked": "^14.0.0",
-    "marked-terminal": "^7.1.0",
+    "marked-terminal": "^7.3.0",
     "highlight.js": "^11.10.0"
   },
   "devDependencies": {
