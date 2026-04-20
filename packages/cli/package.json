@@ -34,6 +34,6 @@
     "@types/inquirer": "^9.0.9",
     "@types/node": "^22.0.0",
     "tsup": "^8.2.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }
