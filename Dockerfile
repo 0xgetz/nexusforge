@@ -2,7 +2,7 @@
 # Uses prebuilt base image for faster builds
 
 # Build stage - uses base image with node_modules pre-installed
-ARG BASE_IMAGE=node:20-slim
+ARG BASE_IMAGE=node:22-slim
 FROM ${BASE_IMAGE} AS builder
 
 WORKDIR /app
@@ -18,17 +18,7 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Ensure standalone output is enabled
-RUN if ! grep -q "output.*standalone" next.config.js 2>/dev/null && \
-       ! grep -q "output.*standalone" next.config.mjs 2>/dev/null; then \
-      if [ -f next.config.js ]; then \
-        sed -i "s/const nextConfig = {/const nextConfig = {\n  output: 'standalone',/" next.config.js || true; \
-      elif [ -f next.config.mjs ]; then \
-        sed -i "s/const nextConfig = {/const nextConfig = {\n  output: 'standalone',/" next.config.mjs || true; \
-      fi; \
-    fi
-
-# Build the Next.js application
+# Build the Next.js application (next.config.js already sets output: 'standalone')
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 RUN npm run build
