@@ -52,11 +52,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  // Linting is handled by Biome (see biome.json) and runs in CI via `bun run lint`.
-  // Next's built-in ESLint integration stays disabled to avoid running two linters.
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 module.exports = nextConfig;
