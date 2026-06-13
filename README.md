@@ -6,6 +6,7 @@
 
 The world's first open-source AI development platform covering the **complete software lifecycle** — from coding to deployment to monitoring. **7 packages**, **56 source files**, **~10,000 LoC** — all free, private, and multi-model.
 
+[![CI/CD Pipeline](https://github.com/0xgetz/nexusforge/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/0xgetz/nexusforge/actions/workflows/ci-cd.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](https://opensource.org/licenses/MIT)
 [![Phase](https://img.shields.io/badge/7_Phases-Complete-brightgreen.svg)](#roadmap)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/0xgetz/nexusforge/pulls)
@@ -398,8 +399,8 @@ node packages/guardian/dist/index.js changelog --output CHANGELOG.md
 | **Phase 4** | `@nexusforge/sdk` | Plugin SDK, events, hooks, registry | 7 | 740 | ✅ Complete |
 | **Phase 5** | `@nexusforge/testgen` | AI test generation, coverage, mutation | 8 | 2,187 | ✅ Complete |
 | **Phase 6** | `@nexusforge/deployer` | Multi-cloud deploy, IaC, CI/CD pipelines | 14 | 1,730 | ✅ Complete |
-| **Phase 7** | `@nexusforge/guardian` | Code review, metrics, architecture, docs | 12 | 2,363 | ✅ Complete |
-|  |  | **Total** | **58** | **~9,875** | **🎉 All Complete** |
+| **Phase 7** | `@nexusforge/guardian` | Code review, metrics, architecture, docs | 10 | 2,363 | ✅ Complete |
+|  |  | **Total** | **56** | **~10,000** | **🎉 All Complete** |
 
 ## 📊 Comparison
 
