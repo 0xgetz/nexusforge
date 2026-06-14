@@ -377,6 +377,31 @@ Add to your MCP client (e.g. Claude Desktop `claude_desktop_config.json`):
 **Tools:** `scan_dependencies` · `lookup_cve` · `diagnose_code` · `review_code` · `quality_metrics` · `detect_project` · `list_security_rules` — all read-only.
 
 
+## 📸 In Action
+
+<div align="center">
+
+**Security Scanner** — dependency CVE audit with a 0–100 score
+
+![Scanner output](assets/shot-scanner.png)
+
+**Self-Healing Engine** — bug & secret detection with a health score
+
+![Healer diagnose output](assets/shot-healer.png)
+
+**Auto-Fix Pull Requests** — scan, fix, and open a PR in one command
+
+![Auto-fix PR output](assets/shot-autofix-pr.png)
+
+**Code Guardian** — A–F code review with rule IDs
+
+![Guardian review output](assets/shot-guardian.png)
+
+<sub><i>Illustrative renders of CLI output (real output shapes & rule IDs). Swapped for live captures once published to npm.</i></sub>
+
+</div>
+
+
 ## ⚡ Quick Start
 
 ```bash
