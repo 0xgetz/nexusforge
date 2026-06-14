@@ -253,4 +253,4 @@ function calculateSummary(vulnerabilities: Vulnerability[]): ScanSummary {
   return summary;
 }
 
-export { detectEcosystem };
+export { detectEcosystem, calculateSummary, cleanVersion };
