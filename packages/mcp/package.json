@@ -1,0 +1,38 @@
+{
+  "name": "@nexusforge/mcp",
+  "version": "0.1.0",
+  "description": "NexusForge MCP server — expose the security scanner, self-healing engine, code guardian, and deployer as Model Context Protocol tools for Claude, Cursor, Windsurf, and any MCP client",
+  "type": "module",
+  "bin": {
+    "nxf-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["mcp", "model-context-protocol", "claude", "cursor", "windsurf", "ai", "security", "code-review", "devtools"],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@nexusforge/scanner": "^0.1.0",
+    "@nexusforge/healer": "^0.1.0",
+    "@nexusforge/guardian": "^0.1.0",
+    "@nexusforge/deployer": "^0.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.0",
+    "typescript": "^6.0.2",
+    "@types/node": "^22.0.0"
+  }
+}
