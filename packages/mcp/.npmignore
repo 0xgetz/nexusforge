@@ -1,0 +1,16 @@
+node_modules
+dist
+src
+*.ts
+*.map
+.env
+.env.*
+tests/
+__tests__/
+*.test.ts
+*.spec.ts
+coverage/
+.gitignore
+.npmignore
+tsconfig.json
+biome.json
