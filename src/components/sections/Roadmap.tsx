@@ -7,7 +7,7 @@ const phases = [
   {
     phase: "Phase 1",
     title: "Foundation",
-    timeline: "Q2 2026 (Apr–Jun)",
+    timeline: "Shipped · Q2 2026",
     icon: Rocket,
     color: "emerald",
     borderColor: "border-emerald-500/40",
@@ -15,18 +15,17 @@ const phases = [
     iconColor: "text-emerald-400",
     dotColor: "bg-emerald-400",
     items: [
-      "Interactive CLI terminal with rich UI (Ink)",
-      "Multi-model integration (Ollama, Claude, GPT)",
-      "Basic code generation & completion",
-      "Syntax highlighting & Vim keybindings",
-      "Project scaffolding & context awareness",
+      "Interactive AI coding CLI with streaming chat",
+      "Multi-model: Ollama, OpenAI, Anthropic, custom endpoints",
+      "Project scaffolding (TS Node, Next.js, FastAPI, Rust)",
+      "Project context detection (language, framework, structure)",
     ],
-    status: "In Development",
+    status: "Shipped",
   },
   {
     phase: "Phase 2",
     title: "Security",
-    timeline: "Q3 2026 (Jul–Sep)",
+    timeline: "Shipped · 2026",
     icon: Shield,
     color: "cyan",
     borderColor: "border-cyan-500/40",
@@ -34,18 +33,17 @@ const phases = [
     iconColor: "text-cyan-400",
     dotColor: "bg-cyan-400",
     items: [
-      "Real-time vulnerability scanner",
-      "Dependency health monitor",
-      "CVE database sync & alerting",
-      "GitHub Actions / GitLab CI integration",
-      "Automated security reports",
+      "Dependency scanner: npm, pip, Cargo, Go",
+      "Live CVE lookup via the OSV.dev database",
+      "Reports in JSON, Markdown, HTML & SARIF",
+      "GitHub Actions security workflow",
     ],
-    status: "Planned",
+    status: "Shipped",
   },
   {
     phase: "Phase 3",
-    title: "Healing",
-    timeline: "Q4 2026 (Oct–Dec)",
+    title: "Self-Healing",
+    timeline: "Shipped · 2026",
     icon: Wrench,
     color: "purple",
     borderColor: "border-purple-500/40",
@@ -53,18 +51,17 @@ const phases = [
     iconColor: "text-purple-400",
     dotColor: "bg-purple-400",
     items: [
-      "Autonomous bug detection engine",
-      "Root cause analysis with AI reasoning",
-      "Auto-generated fix pull requests",
-      "Production monitoring integration",
-      "Self-healing pipeline orchestration",
+      "Bug, secret & anti-pattern detection across 6 languages",
+      "Automated fixes (console, var→const, ==→===, bare except)",
+      "Patch generation + watch mode",
+      "Read-only diagnostics with a health score",
     ],
-    status: "Planned",
+    status: "Shipped",
   },
   {
     phase: "Phase 4",
-    title: "Ecosystem",
-    timeline: "Q1–Q2 2027",
+    title: "Quality & Delivery",
+    timeline: "Shipped · 2026",
     icon: Puzzle,
     color: "amber",
     borderColor: "border-amber-500/40",
@@ -72,13 +69,48 @@ const phases = [
     iconColor: "text-amber-400",
     dotColor: "bg-amber-400",
     items: [
-      "Plugin SDK & open marketplace",
-      "Visual app builder (no-code layer)",
-      "One-click deployment integration",
-      "Collaborative mode & team features",
-      "Mobile support & companion app",
+      "Plugin SDK: hooks, events, registry",
+      "AI test generation + coverage + mutation testing",
+      "Multi-cloud deployer: Vercel, Netlify, AWS, GCP, Docker",
+      "Code Guardian: review, metrics, architecture, docs",
     ],
-    status: "Vision",
+    status: "Shipped",
+  },
+  {
+    phase: "Phase 5",
+    title: "AI-Editor Integration",
+    timeline: "Shipped · 2026",
+    icon: Rocket,
+    color: "emerald",
+    borderColor: "border-emerald-500/40",
+    iconBg: "bg-emerald-500/10",
+    iconColor: "text-emerald-400",
+    dotColor: "bg-emerald-400",
+    items: [
+      "MCP server (Model Context Protocol)",
+      "7 tools for Claude, Cursor, Windsurf & Cline",
+      "45-test suite across the packages",
+      "One-command launch via npx",
+    ],
+    status: "Shipped",
+  },
+  {
+    phase: "Phase 6",
+    title: "Ecosystem & Scale",
+    timeline: "In design · 2027",
+    icon: Puzzle,
+    color: "cyan",
+    borderColor: "border-cyan-500/40",
+    iconBg: "bg-cyan-500/10",
+    iconColor: "text-cyan-400",
+    dotColor: "bg-cyan-400",
+    items: [
+      "Public plugin marketplace",
+      "Auto-fix pull requests + production monitoring",
+      "Team & collaboration mode",
+      "Visual builder & mobile companion",
+    ],
+    status: "Next",
   },
 ];
 
@@ -105,8 +137,8 @@ export default function Roadmap() {
             </span>
           </h2>
           <p data-design-id="roadmap-desc" className="text-muted-foreground max-w-xl mx-auto text-base">
-            Four iterative phases, each delivering real value while building
-            toward the complete vision.
+            Five phases shipped end-to-end across the full software lifecycle,
+            with the ecosystem layer up next.
           </p>
         </motion.div>
 
@@ -143,9 +175,9 @@ export default function Roadmap() {
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-sm">{phase.phase}: {phase.title}</span>
                           <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                            phase.status === "In Development"
+                            phase.status === "Shipped"
                               ? "bg-emerald-500/10 text-emerald-400"
-                              : phase.status === "Planned"
+                              : phase.status === "Next"
                               ? "bg-cyan-500/10 text-cyan-400"
                               : "bg-amber-500/10 text-amber-400"
                           }`}>
