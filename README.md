@@ -348,6 +348,14 @@ const docs = await generateDocs("./src"); // 42 exports documented
 
 Expose the scanner, healer, guardian, and deployer as **Model Context Protocol** tools, so Claude Desktop, Cursor, Windsurf, and Cline can run them directly — no copy-pasting.
 
+<div align="center">
+
+![NexusForge MCP demo](assets/mcp-demo.gif)
+
+<sub><i>Illustrative demo of the tool output. Once published to npm we'll swap in a live screen recording.</i></sub>
+
+</div>
+
 ```bash
 npx @nexusforge/mcp
 ```
