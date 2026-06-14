@@ -376,6 +376,14 @@ Add to your MCP client (e.g. Claude Desktop `claude_desktop_config.json`):
 
 **Tools:** `scan_dependencies` · `lookup_cve` · `diagnose_code` · `review_code` · `quality_metrics` · `detect_project` · `list_security_rules` — all read-only.
 
+<div align="center">
+
+![NexusForge MCP tools in the editor](assets/shot-mcp-editor.png)
+
+<sub><i>The seven NexusForge tools auto-discovered inside an MCP client. Illustrative render — swapped for a live capture once published.</i></sub>
+
+</div>
+
 
 ## 📸 In Action
 
