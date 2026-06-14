@@ -4,11 +4,13 @@
 
 ### Code · Scan · Heal · Extend · Test · Deploy · Guard
 
-The world's first open-source AI development platform covering the **complete software lifecycle** — from coding to deployment to monitoring. **7 packages**, **56 source files**, **~10,000 LoC** — all free, private, and multi-model.
+The world's first open-source AI development platform covering the **complete software lifecycle** — from coding to deployment to monitoring — and now plugged straight into your AI editor over **MCP**. **8 packages**, fully typed, with a passing test suite — all free, private, and multi-model.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](https://opensource.org/licenses/MIT)
 [![Phase](https://img.shields.io/badge/7_Phases-Complete-brightgreen.svg)](#roadmap)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/0xgetz/nexusforge/pulls)
+[![Tests](https://img.shields.io/badge/tests-45_passing-brightgreen.svg)](#-quick-start)
+[![MCP](https://img.shields.io/badge/MCP-ready-8b5cf6.svg)](#-nexusforgemcp--mcp-server)
 
 [Website](https://nexusforge.dev) · [Documentation](#packages) · [Roadmap](#-roadmap) · [Contributing](#-contributing)
 
@@ -29,10 +31,10 @@ Open-source security in 2026 has reached a critical tipping point:
 
 > Source: OSSRA 2026 — Black Duck Software
 
-## 🏗️ Seven Pillars
+## 🏗️ The Pillars
 
 ```
- Write → Scan → Heal → Extend → Test → Deploy → Guard
+ Write → Scan → Heal → Extend → Test → Deploy → Guard → Connect (MCP)
  CLI Scanner Healer SDK TestGen Deployer Guardian
 ```
 
@@ -45,6 +47,7 @@ Open-source security in 2026 has reached a critical tipping point:
 | 5 | **Testing** | `@nexusforge/testgen` | AI test generation, coverage analysis, mutation testing |
 | 6 | **Deployment** | `@nexusforge/deployer` | Multi-cloud deploy, IaC, CI/CD pipelines |
 | 7 | **Quality** | `@nexusforge/guardian` | Code review, metrics, architecture analysis, docs |
+| 8 | **MCP Server** | `@nexusforge/mcp` | Exposes every pillar as Model Context Protocol tools for Claude, Cursor, Windsurf |
 
 ## 📦 Packages
 
@@ -59,7 +62,8 @@ nexusforge/
 │   ├── sdk/       # Phase 4 — @nexusforge/sdk        — Plugin SDK
 │   ├── testgen/   # Phase 5 — @nexusforge/testgen    — AI Test Generator
 │   ├── deployer/  # Phase 6 — @nexusforge/deployer   — Smart Deployer
-│   └── guardian/  # Phase 7 — @nexusforge/guardian    — Code Guardian
+│   ├── guardian/  # Phase 7 — @nexusforge/guardian    — Code Guardian
+│   └── mcp/       # Phase 8 — @nexusforge/mcp         — MCP Server
 ├── src/           # Landing page (Next.js)
 └── .github/       # CI/CD workflows
 ```
@@ -338,6 +342,28 @@ const docs = await generateDocs("./src"); // 42 exports documented
 `SEC-001` Hardcoded secrets · `SEC-002` eval() usage · `SEC-003` innerHTML XSS · `BUG-001` Unsafe any cast · `BUG-002` Bare except · `BUG-003` Non-exhaustive switch · `PERF-001` Sync filesystem calls · `PERF-002` Triple-nested loops · `MAINT-001` console.log · `MAINT-002` TODO/FIXME · `MAINT-003` Magic numbers · `MAINT-004` Wildcard imports · `STYLE-001` any type usage · `STYLE-002` Non-null assertions
 
 ---
+---
+
+### 🔌 `@nexusforge/mcp` — MCP Server
+
+Expose the scanner, healer, guardian, and deployer as **Model Context Protocol** tools, so Claude Desktop, Cursor, Windsurf, and Cline can run them directly — no copy-pasting.
+
+```bash
+npx @nexusforge/mcp
+```
+
+Add to your MCP client (e.g. Claude Desktop `claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "nexusforge": { "command": "npx", "args": ["-y", "@nexusforge/mcp"] }
+  }
+}
+```
+
+**Tools:** `scan_dependencies` · `lookup_cve` · `diagnose_code` · `review_code` · `quality_metrics` · `detect_project` · `list_security_rules` — all read-only.
+
 
 ## ⚡ Quick Start
 
@@ -399,7 +425,10 @@ node packages/guardian/dist/index.js changelog --output CHANGELOG.md
 | **Phase 5** | `@nexusforge/testgen` | AI test generation, coverage, mutation | 8 | 2,187 | ✅ Complete |
 | **Phase 6** | `@nexusforge/deployer` | Multi-cloud deploy, IaC, CI/CD pipelines | 14 | 1,730 | ✅ Complete |
 | **Phase 7** | `@nexusforge/guardian` | Code review, metrics, architecture, docs | 12 | 2,363 | ✅ Complete |
-|  |  | **Total** | **58** | **~9,875** | **🎉 All Complete** |
+| **Phase 8** | `@nexusforge/mcp` | MCP server — every pillar as AI-editor tools | 1 | ~190 | ✅ Complete |
+|  |  | **Total** | **8 packages** | **~10,000** | **🎉 All Complete** |
+
+> Test suite: `bun test` — 45 passing across scanner, healer, sdk, guardian, deployer, and testgen.
 
 ## 📊 Comparison
 
