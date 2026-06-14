@@ -8,6 +8,7 @@ import { resolve } from "path";
 import { analyze, generateReport } from "./analyzer.js";
 import { applyFixes, generatePatchContent } from "./fixer.js";
 import { startMonitor } from "./monitor.js";
+import { createFixPR } from "./pr.js";
 
 const VERSION = "0.1.0";
 
@@ -146,10 +147,65 @@ program
     }
   });
 
+program
+  .command("pr")
+  .description("Scan, auto-fix, and open a GitHub pull request with the fixes")
+  .option("-p, --path <path>", "Project path", process.cwd())
+  .option("-b, --base <branch>", "Base branch for the PR (default: current branch)")
+  .option("--branch <name>", "Name for the fix branch")
+  .option("--token <token>", "GitHub token (or set GITHUB_TOKEN)")
+  .option("--ignore <dirs>", "Comma-separated directories to ignore", "")
+  .option("--draft", "Open the PR as a draft", false)
+  .option("--dry-run", "Apply + commit on a branch but do not push or open a PR", false)
+  .action(async (options) => {
+    console.log(chalk.hex("#10b981").bold("\n\u26a1 NexusForge Self-Healing \u2014 Auto-Fix PR\n"));
+    const token = options.token || process.env.GITHUB_TOKEN;
+    if (!token && !options.dryRun) {
+      console.log(chalk.red("  \u2717 No GitHub token. Pass --token or set GITHUB_TOKEN (or use --dry-run).\n"));
+      process.exit(1);
+    }
+
+    const spinner = ora("Scanning, fixing, and preparing a PR...").start();
+    try {
+      const ignore = options.ignore ? options.ignore.split(",").map((s: string) => s.trim()) : [];
+      const r = await createFixPR({
+        path: resolve(options.path),
+        token,
+        base: options.base,
+        branch: options.branch,
+        ignore,
+        draft: options.draft,
+        dryRun: options.dryRun,
+      });
+
+      if (r.applied === 0) {
+        spinner.info("No auto-fixable issues found \u2014 nothing to open a PR for.");
+        return;
+      }
+
+      if (r.dryRun) {
+        spinner.succeed(`Applied ${r.applied} fixes and committed to ${r.branch} (dry run \u2014 not pushed)`);
+        console.log(chalk.dim(`\n  Push it yourself with: git push -u origin ${r.branch}\n`));
+        return;
+      }
+
+      spinner.succeed(`Opened PR #${r.prNumber} with ${r.applied} fixes (${r.branch} \u2192 ${r.base})`);
+      console.log(chalk.green(`\n  \u2713 ${r.prUrl}\n`));
+    } catch (err) {
+      spinner.fail("Auto-fix PR failed");
+      const message = err instanceof Error ? err.message : String(err);
+      console.log(chalk.red(`\n  \u2717 ${message}\n`));
+      process.exit(1);
+    }
+  });
+
+
 program.parse();
 
 export { analyze, generateReport } from "./analyzer.js";
 export { detectBugs, scanDirectory } from "./detector.js";
 export { generateFixes, applyFixes, generatePatchContent } from "./fixer.js";
 export { startMonitor } from "./monitor.js";
+export { createFixPR, parseGitHubRemote, buildBranchName, buildPRBody } from "./pr.js";
+export type { CreateFixPROptions, CreateFixPRResult } from "./pr.js";
 export type { Bug, Fix, AnalysisResult, HealerOptions } from "./types.js";
