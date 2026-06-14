@@ -156,6 +156,10 @@ node dist/index.js watch --path /your/project
 
 # Generate patch
 node dist/index.js patch --output fixes.patch
+
+# Scan, auto-fix, and open a GitHub pull request with the fixes
+GITHUB_TOKEN=ghp_... node dist/index.js pr --base main
+node dist/index.js pr --dry-run   # apply + commit on a branch, no push
 ```
 
 **Detects:** Hardcoded secrets · SQL injection · XSS · eval() · Null references · Empty catch blocks · Console statements · `var` usage · Loose equality · `.unwrap()` (Rust) · Mutable defaults (Python) · TODO/FIXME
