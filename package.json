@@ -20,7 +20,8 @@
     "publish:testgen": "npm publish --access public --workspace @nexusforge/testgen",
     "publish:deployer": "npm publish --access public --workspace @nexusforge/deployer",
     "publish:guardian": "npm publish --access public --workspace @nexusforge/guardian",
-    "publish:all": "npm run publish:cli && npm run publish:scanner && npm run publish:healer && npm run publish:sdk && npm run publish:testgen && npm run publish:deployer && npm run publish:guardian",
+    "publish:mcp": "npm publish --access public --workspace @nexusforge/mcp",
+    "publish:all": "npm run publish:cli && npm run publish:scanner && npm run publish:healer && npm run publish:sdk && npm run publish:testgen && npm run publish:deployer && npm run publish:guardian && npm run publish:mcp",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish"
